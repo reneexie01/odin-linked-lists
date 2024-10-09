@@ -149,6 +149,40 @@ class LinkedList {
         }
         return array.join(' -> ');
     }
+
+    insertAt(input, index) {
+        let node = new Node(input);
+        let current = this.head;
+        let counter = 0;
+        let previousIndex = index - 1;
+
+        while (current) {
+            if (counter !== previousIndex) {
+                counter++;
+                current = current.next;
+            } else {
+                node.next = current.next;
+                current.next = node;
+                return;
+            }
+        }
+    }
+
+    removeAt(index) {
+        let current = this.head;
+        let counter = 0;
+        let previousIndex = index - 1;
+
+        while (current) {
+            if (counter !== previousIndex) {
+                counter++;
+                current = current.next;
+            } else {
+                current.next = current.next.next;
+                return;
+            }
+        }
+    }
 }
 
 
@@ -170,4 +204,8 @@ console.log(newList.pop());
 console.log(newList);
 console.log(newList.contains('leya1'));
 console.log(newList.find('leya'));
+console.log(newList.toString());
+newList.insertAt('loqueen', 2);
+console.log(newList.toString());
+newList.removeAt(1);
 console.log(newList.toString());
