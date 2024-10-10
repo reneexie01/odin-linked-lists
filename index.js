@@ -147,6 +147,7 @@ class LinkedList {
             array.push(arrayValue);
             current = current.next;
         }
+        array.push('null')
         return array.join(' -> ');
     }
 
