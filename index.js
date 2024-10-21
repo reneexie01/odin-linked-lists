@@ -1,5 +1,7 @@
-// Constructor for Node
+/* Constructor Functions */ 
 
+// Constructor for Node
+/*
 class Node {
     constructor(value) {
         this.value = value;
@@ -187,14 +189,14 @@ class LinkedList {
 }
 
 
-const newList = new LinkedList();
+const list = new LinkedList();
 
-newList.append('logan');
-newList.append('tina');
-newList.prepend('renee');
-newList.prepend('leya');
-newList.prepend('tina');
-
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
 
 console.log(newList);
 console.log(newList.size());
@@ -210,3 +212,176 @@ newList.insertAt('loqueen', 2);
 console.log(newList.toString());
 newList.removeAt(1);
 console.log(newList.toString());
+
+*/
+
+function LinkedList() {
+    let head = null;
+    let size = 0;
+
+    const append = (value) => {
+        const node = Node(value);
+        if (!head) {
+            head = node;
+            size++;
+        } else {
+            let current = head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = node;
+            size++;
+        }
+    }
+
+    const prepend = (value) => {
+        const node = Node(value);
+        if (!head) {
+            head = node;
+            size++;
+        } else {
+            node.next = head;
+            head = node;
+            size++;
+        }
+    }
+
+    const getSize = () => size;
+
+    const getHead = () => head;
+
+    const getTail = () => {
+        let current = head;
+        while (current.next) {
+            current = current.next;
+        }
+        return current;
+    }
+
+    const at = (index) => {
+        let counter = 0;
+        let current = head;
+
+        while (current && counter !== index) {
+            current = current.next;
+            counter++;
+        }
+        return current;
+    }
+
+    const pop = () => {
+        let current = head;
+        while (current.next.next) {
+            current = current.next;
+        }
+        current.next = null;
+    }
+
+    const contains = (value) => {
+        let current = head;
+        while (current) {
+            if (current.data === value) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    const find = (value) => {
+        let counter = 0;
+        let current = head;
+        while (current) {
+            if (current.data === value) {
+                return counter;
+            }
+            current = current.next;
+            counter++
+        }
+        return null;
+    }
+
+    const toString = () => {
+        let array = [];
+        let string = '';
+        let current = head;
+
+        while (current) {
+            array.push(current.data);
+            current = current.next;
+        }
+
+        array.forEach((item) => {
+            string += `( ${item} ) -> `
+        })
+
+        string += 'null';
+
+        return string;
+    }
+
+    const insertAt = (value, index) => {
+        const node = Node(value)
+
+        if (index === 0) {
+            node.next = head;
+            head = node;
+            return;
+        }
+
+        let counter = 0;
+        let current = head;
+        while (current) {
+           if (counter !== index - 1) {
+                counter++;
+                current = current.next;
+            } else {
+                node.next = current.next;
+                current.next = node;
+                return;
+            }
+        }
+    }
+
+    const removeAt = (index) => {
+        if (index === 0) {
+            head = head.next;
+            return;
+        }
+
+        let counter = 0;
+        let current = head;
+        while (current) {
+            if (counter !== index - 1) {
+                counter++;
+                current = current.next;
+            } else {
+                current.next = current.next.next;
+                return;
+            }
+        }
+    }
+
+    return { append, prepend, getSize, getHead, getTail, at, pop, contains, find, toString, insertAt, removeAt }
+}
+
+function Node(value) {
+    let data = value;
+    let next = null;
+
+    return { data, next }
+}
+
+const list = LinkedList();
+
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
+list.insertAt("rat", 0)
+list.removeAt(0)
+
+console.log(list.getHead())
+console.log(list.toString())
